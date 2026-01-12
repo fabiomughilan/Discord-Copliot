@@ -28,19 +28,15 @@ export async function POST(request: NextRequest) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Process the PDF
-    const { chunkCount, pineconeIds } = await processPDFDocument(
+    // Process the PDF (this also creates the document record in DB)
+    const { chunkCount, documentId } = await processPDFDocument(
       buffer,
       file.name
     );
 
-    // Store metadata in database
-    const document = await prisma.knowledgeDocument.create({
-      data: {
-        filename: file.name,
-        chunkCount,
-        pineconeIds,
-      },
+    // Get the created document
+    const document = await prisma.knowledgeDocument.findUnique({
+      where: { id: documentId },
     });
 
     return NextResponse.json({
