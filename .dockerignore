@@ -1,0 +1,55 @@
+# flyctl launch added from .gitignore
+# Node modules
+**\node_modules
+**\npm-debug.log*
+**\yarn-debug.log*
+**\yarn-error.log*
+
+# Environment variables
+**\.env
+**\.env.local
+**\.env.production
+**\.env.*.local
+
+# Build outputs
+**\dist
+**\build
+**\.next
+**\out
+
+# IDE
+**\.vscode
+**\.idea
+**\*.swp
+**\*.swo
+**\*~
+
+# OS
+**\.DS_Store
+**\Thumbs.db
+
+# Prisma
+**\prisma\migrations
+
+# Logs
+**\*.log
+**\logs
+
+# Testing
+**\coverage
+**\.nyc_output
+
+# Misc
+**\.cache
+**\temp
+**\tmp
+
+# flyctl launch added from discord-bot\.gitignore
+discord-bot\**\node_modules
+discord-bot\**\dist
+discord-bot\**\.env
+discord-bot\**\.env.local
+discord-bot\**\.env.production
+discord-bot\**\*.log
+discord-bot\**\.DS_Store
+fly.toml
