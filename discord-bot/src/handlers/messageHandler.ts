@@ -41,7 +41,9 @@ export async function handleMessage(message: Message, client: Client) {
     );
 
     // Show typing indicator
-    await message.channel.sendTyping();
+    if ('sendTyping' in message.channel) {
+      await message.channel.sendTyping();
+    }
 
     // Generate AI response
     const response = await generateResponse(

@@ -23,10 +23,17 @@ export async function getBotConfig(): Promise<BotConfig> {
 
   try {
     const response = await axios.get(`${API_BASE_URL}/api/bot`);
-    cachedConfig = response.data;
-    lastFetchTime = now;
-    log.info('Fetched bot configuration', { config: cachedConfig });
-    return cachedConfig;
+    const config: BotConfig | null = response.data;
+    
+    // Cache the config if valid
+    if (config) {
+      cachedConfig = config;
+      lastFetchTime = now;
+      log.info('Fetched bot configuration', { config: cachedConfig });
+      return cachedConfig;
+    }
+    
+    throw new Error('Invalid config received');
   } catch (error) {
     log.error('Failed to fetch bot config', error);
     
