@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String   // bcrypt hashed
+  createdAt DateTime @default(now())
+}
+
+model BotConfig {
+  id                 String   @id @default(cuid())
+  systemInstructions String   @db.Text
+  allowedChannels    String[] // Array of Discord channel IDs
+  isActive           Boolean  @default(true)
+  updatedAt          DateTime @updatedAt
+  createdAt          DateTime @default(now())
+}
+
+model Conversation {
+  id             String    @id @default(cuid())
+  channelId      String
+  messages       Message[]
+  runningSummary String?   @db.Text
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([channelId])
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           String       // 'user' or 'assistant'
+  content        String       @db.Text
+  authorId       String       // Discord user ID
+  authorName     String       // Discord username
+  timestamp      DateTime     @default(now())
+
+  @@index([conversationId])
+}
+
+model KnowledgeDocument {
+  id        String          @id @default(cuid())
+  filename  String
+  uploadedAt DateTime       @default(now())
+  chunkCount Int
+  chunks    DocumentChunk[] // Relation to vector chunks
+}
+
+model DocumentChunk {
+  id         String            @id @default(cuid())
+  documentId String
+  document   KnowledgeDocument @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content    String            @db.Text
+  embedding  Unsupported("vector(1536)")?  // pgvector column
+  chunkIndex Int
+  createdAt  DateTime          @default(now())
+
+  @@index([documentId])
+}
