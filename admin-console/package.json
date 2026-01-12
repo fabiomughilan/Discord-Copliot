@@ -14,16 +14,16 @@
     "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.47.10",
     "@prisma/client": "^6.1.0",
+    "@supabase/supabase-js": "^2.47.10",
     "bcryptjs": "^3.0.3",
     "next": "16.1.1",
-    "pdf-parse": "^2.4.5",
+    "pdf-parse-fork": "^1.2.0",
+    "pgvector": "^0.2.0",
     "prisma": "^6.1.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "swr": "^2.3.8",
-    "pgvector": "^0.2.0"
+    "swr": "^2.3.8"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

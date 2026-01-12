@@ -1,6 +1,6 @@
 import { prisma } from './prisma';
 
-const pdfParse = require('pdf-parse');
+const pdfParse = require('pdf-parse-fork');
 
 // Hugging Face API configuration
 const HF_API_URL = 'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2';
