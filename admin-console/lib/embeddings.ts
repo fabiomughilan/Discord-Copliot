@@ -3,7 +3,7 @@ import { prisma } from './prisma';
 const pdfParse = require('pdf-parse-fork');
 
 // Hugging Face API configuration
-const HF_API_URL = 'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2';
+const HF_API_URL = 'https://api-inference.huggingface.co/models/sentence-transformers/all-MiniLM-L6-v2';
 const HF_API_KEY = process.env.HUGGINGFACE_API_KEY;
 
 interface ChunkMetadata {
@@ -44,9 +44,6 @@ export async function extractTextFromPDF(buffer: Buffer): Promise<string> {
   return data.text;
 }
 
-/**
- * Generate embeddings using Hugging Face API
- */
 export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
   const embeddings: number[][] = [];
 
@@ -59,24 +56,26 @@ export async function generateEmbeddings(texts: string[]): Promise<number[][]> {
       },
       body: JSON.stringify({
         inputs: text,
-        options: { wait_for_model: true }
+        options: { 
+          wait_for_model: true,
+          use_cache: false
+        }
       }),
     });
 
     if (!response.ok) {
-      throw new Error(`Hugging Face API error: ${response.statusText}`);
+      const errorText = await response.text();
+      throw new Error(`Hugging Face API error (${response.status}): ${errorText}`);
     }
 
-    const embedding = await response.json();
-    embeddings.push(embedding);
+    const result = await response.json();
+    // HF returns the embedding directly as an array
+    embeddings.push(Array.isArray(result) ? result : result[0]);
   }
 
   return embeddings;
 }
 
-/**
- * Generate single embedding for query
- */
 export async function generateQueryEmbedding(query: string): Promise<number[]> {
   const response = await fetch(HF_API_URL, {
     method: 'POST',
@@ -86,15 +85,20 @@ export async function generateQueryEmbedding(query: string): Promise<number[]> {
     },
     body: JSON.stringify({
       inputs: query,
-      options: { wait_for_model: true }
+      options: { 
+        wait_for_model: true,
+        use_cache: false
+      }
     }),
   });
 
   if (!response.ok) {
-    throw new Error(`Hugging Face API error: ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`Hugging Face API error (${response.status}): ${errorText}`);
   }
 
-  return await response.json();
+  const result = await response.json();
+  return Array.isArray(result) ? result : result[0];
 }
 
 /**
