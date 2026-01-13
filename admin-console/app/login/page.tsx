@@ -51,7 +51,7 @@ export default function LoginPage() {
           <div className="login-header">
             <div className="logo-large">🤖</div>
             <h1 className="login-title">Admin Login</h1>
-            <p className="login-subtitle">Discord Copilot Control Center</p>
+            <p className="login-subtitle">Figmenta Copilot Control Center</p>
           </div>
 
           {/* Login Form */}

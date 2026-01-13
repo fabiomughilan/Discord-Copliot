@@ -89,7 +89,7 @@ export default function DashboardPage() {
               <div className="logo-section">
                 <div className="logo-icon">🤖</div>
                 <div>
-                  <h1 className="dashboard-title">Discord Copilot</h1>
+                  <h1 className="dashboard-title">Figmenta Copilot</h1>
                   <p className="dashboard-subtitle">AI Agent Control Center</p>
                 </div>
               </div>

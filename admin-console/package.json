@@ -17,6 +17,7 @@
     "@prisma/client": "^6.1.0",
     "@supabase/supabase-js": "^2.47.10",
     "bcryptjs": "^3.0.3",
+    "gsap": "^3.14.2",
     "next": "16.1.1",
     "pdf-parse-fork": "^1.2.0",
     "pgvector": "^0.2.0",

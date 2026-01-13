@@ -1,12 +1,74 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function HomePage() {
   const router = useRouter();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const featuresRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // Hero animations
+    const ctx = gsap.context(() => {
+      gsap.from('.hero-title', {
+        opacity: 0,
+        y: 50,
+        duration: 1,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.hero-description', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: 0.3,
+        ease: 'power3.out',
+      });
+
+      gsap.from('.hero-actions', {
+        opacity: 0,
+        y: 30,
+        duration: 1,
+        delay: 0.6,
+        ease: 'power3.out',
+      });
+
+      // Feature cards stagger animation
+      gsap.from('.feature-card', {
+        scrollTrigger: {
+          trigger: '.features-grid',
+          start: 'top 80%',
+        },
+        opacity: 0,
+        y: 60,
+        duration: 0.8,
+        stagger: 0.15,
+        ease: 'power3.out',
+      });
+
+      // CTA animation
+      gsap.from('.cta-content', {
+        scrollTrigger: {
+          trigger: '.cta',
+          start: 'top 80%',
+        },
+        opacity: 0,
+        scale: 0.95,
+        duration: 1,
+        ease: 'power3.out',
+      });
+    }, heroRef);
+
+    return () => ctx.revert();
+  }, []);
 
   return (
-    <div className="landing-page">
+    <div className="landing-page" ref={heroRef}>
       {/* Animated Background */}
       <div className="bg-animation">
         <div className="circle circle-1"></div>
@@ -19,7 +81,7 @@ export default function HomePage() {
         <div className="container nav-content">
           <div className="logo">
             <span className="logo-icon">🤖</span>
-            <span className="logo-text">Discord Copilot</span>
+            <span className="logo-text">Figmenta Copilot</span>
           </div>
           <button 
             className="btn btn-primary btn-sm"
@@ -64,7 +126,7 @@ export default function HomePage() {
       </section>
 
       {/* Features Section */}
-      <section className="features">
+      <section className="features" ref={featuresRef}>
         <div className="container">
           <div className="features-grid">
             <div className="feature-card glass">
@@ -136,7 +198,7 @@ export default function HomePage() {
           <div className="cta-content glass">
             <h2 className="cta-title">Ready to enhance your Discord server?</h2>
             <p className="cta-text">
-              Join servers already using Discord Copilot for smarter conversations
+              Join servers already using Figmenta Copilot for smarter conversations
             </p>
             <div className="cta-buttons">
               <button 
@@ -155,7 +217,7 @@ export default function HomePage() {
       <footer className="footer">
         <div className="container">
           <p className="footer-text">
-            Discord Copilot © 2026
+            Figmenta Copilot © 2026
           </p>
         </div>
       </footer>
