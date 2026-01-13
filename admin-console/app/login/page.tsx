@@ -37,21 +37,21 @@ export default function LoginPage() {
 
   return (
     <div className="login-page">
-      <div className="login-container">
-        {/* Animated Background */}
-        <div className="bg-animation">
-          <div className="circle circle-1"></div>
-          <div className="circle circle-2"></div>
-          <div className="circle circle-3"></div>
-        </div>
+      {/* Animated Background */}
+      <div className="bg-animation">
+        <div className="circle circle-1"></div>
+        <div className="circle circle-2"></div>
+        <div className="circle circle-3"></div>
+      </div>
 
-        {/* Login Card */}
+      {/* Login Card */}
+      <div className="login-container">
         <div className="login-card glass">
           {/* Logo Section */}
           <div className="login-header">
             <div className="logo-large">🤖</div>
-            <h1 className="login-title">Discord Copilot</h1>
-            <p className="login-subtitle">Admin Control Center</p>
+            <h1 className="login-title">Admin Login</h1>
+            <p className="login-subtitle">Discord Copilot Control Center</p>
           </div>
 
           {/* Login Form */}
@@ -112,7 +112,7 @@ export default function LoginPage() {
               ) : (
                 <>
                   <span>🚀</span>
-                  Login
+                  Login to Dashboard
                 </>
               )}
             </button>
@@ -121,35 +121,18 @@ export default function LoginPage() {
           {/* Footer */}
           <div className="login-footer">
             <p className="footer-text">
-              Default credentials: <code>admin</code> / <code>admin123</code>
+              Default: <code>admin</code> / <code>admin123</code>
             </p>
             <p className="footer-hint">
-              💡 Change your password after first login
+              💡 Change password after first login
             </p>
+            <button 
+              className="back-link"
+              onClick={() => router.push('/')}
+            >
+              ← Back to Home
+            </button>
           </div>
-        </div>
-
-        {/* Info Card */}
-        <div className="info-card glass">
-          <h3 className="info-title">✨ Features</h3>
-          <ul className="feature-list">
-            <li>
-              <span className="feature-icon">⚙️</span>
-              <span>Configure AI system instructions</span>
-            </li>
-            <li>
-              <span className="feature-icon">📢</span>
-              <span>Manage Discord channels</span>
-            </li>
-            <li>
-              <span className="feature-icon">💭</span>
-              <span>View conversation history</span>
-            </li>
-            <li>
-              <span className="feature-icon">📚</span>
-              <span>Upload PDF knowledge base</span>
-            </li>
-          </ul>
         </div>
       </div>
 
@@ -224,15 +207,11 @@ export default function LoginPage() {
         .login-container {
           position: relative;
           z-index: 1;
-          display: flex;
-          gap: 24px;
-          max-width: 900px;
           width: 100%;
+          max-width: 450px;
         }
 
         .login-card {
-          flex: 1;
-          max-width: 450px;
           padding: 48px 40px;
           border-radius: 24px;
           animation: slideUp 0.6s ease-out;
@@ -371,72 +350,26 @@ export default function LoginPage() {
         .footer-hint {
           font-size: 12px;
           color: var(--text-secondary);
-          margin: 0;
+          margin: 0 0 16px 0;
           opacity: 0.7;
         }
 
-        .info-card {
-          flex: 1;
-          max-width: 350px;
-          padding: 32px;
-          border-radius: 24px;
-          animation: slideUp 0.6s ease-out 0.2s both;
-        }
-
-        .info-title {
-          font-size: 20px;
-          font-weight: 700;
-          margin: 0 0 24px 0;
-          color: var(--text-primary);
-        }
-
-        .feature-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
-        .feature-list li {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 12px;
-          background: rgba(255, 255, 255, 0.03);
-          border-radius: 12px;
-          border: 1px solid rgba(255, 255, 255, 0.05);
+        .back-link {
+          background: none;
+          border: none;
+          color: var(--primary);
+          font-size: 14px;
+          cursor: pointer;
+          padding: 8px;
           transition: all 0.3s ease;
         }
 
-        .feature-list li:hover {
-          background: rgba(255, 255, 255, 0.06);
-          border-color: rgba(255, 255, 255, 0.1);
-          transform: translateX(4px);
-        }
-
-        .feature-icon {
-          font-size: 20px;
-          flex-shrink: 0;
-        }
-
-        .feature-list li span:last-child {
-          font-size: 14px;
-          color: var(--text-secondary);
+        .back-link:hover {
+          opacity: 0.8;
+          transform: translateX(-4px);
         }
 
         @media (max-width: 768px) {
-          .login-container {
-            flex-direction: column;
-            align-items: center;
-          }
-
-          .login-card,
-          .info-card {
-            max-width: 100%;
-          }
-
           .login-card {
             padding: 32px 24px;
           }
