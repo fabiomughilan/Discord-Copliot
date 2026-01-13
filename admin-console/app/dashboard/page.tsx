@@ -104,6 +104,13 @@ export default function DashboardPage() {
                 </span>
               </div>
               
+              <button 
+                className="btn btn-accent"
+                onClick={() => window.open('https://discord.com/api/oauth2/authorize?client_id=1460267725149700209&permissions=2048&scope=bot', '_blank')}
+              >
+                <span>💬</span> Add to Server
+              </button>
+              
               <button className="btn btn-secondary logout-btn" onClick={handleLogout}>
                 <span>🚪</span> Logout
               </button>

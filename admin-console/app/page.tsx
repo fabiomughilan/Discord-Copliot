@@ -55,10 +55,10 @@ export default function HomePage() {
               </button>
               <button 
                 className="btn btn-secondary btn-large"
-                onClick={() => document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => window.open('https://discord.com/api/oauth2/authorize?client_id=1460267725149700209&permissions=2048&scope=bot', '_blank')}
               >
-                <span>✨</span>
-                Learn More
+                <span>💬</span>
+                Add to Discord
               </button>
             </div>
           </div>
